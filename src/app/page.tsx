@@ -1,101 +1,242 @@
-import Image from "next/image";
+import type { NextPage } from 'next';
+import Head from 'next/head';
+import Image from 'next/image';
+import Link from 'next/link';
 
-export default function Home() {
+const featuredCars = [
+  {
+    id: 1,
+    name: 'Toyota Camry',
+    image: '/images/car_1.png',
+    price: 120
+  },
+  {
+    id: 2,
+    name: 'Honda Accord', 
+    image: '/images/car_2.png',
+    price: 130
+  },
+  {
+    id: 3,
+    name: 'BMW 5 Series',
+    image: '/images/car_3.png',
+    price: 200
+  }
+];
+
+const blogPosts = [
+  {
+    id: 1,
+    title: 'Top 5 Tips for Renting a Car',
+    description: 'A comprehensive guide to help you choose the best car rental service.',
+    image: '/images/blog_1.png',
+    link: '/blog/top-5-tips'
+  },
+  {
+    id: 2,
+    title: 'Best Family Cars to Rent',
+    description: 'Discover the best vehicles for your family road trips.',
+    image: '/images/blog_2.png',
+    link: '/blog/best-family-cars'
+  },
+  {
+    id: 3,
+    title: 'How to Save Money on Rentals',
+    description: 'Learn tips and tricks to get the best deals on car rentals.',
+    image: '/images/blog_3.png',
+    link: '/blog/save-money'
+  }
+];
+
+const Home: NextPage = () => {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div className="min-h-screen bg-white text-gray-900">
+      <Head>
+        <title>CarRent - Car Rental Services</title>
+        <meta name="description" content="Rent the best cars with CarRent" />
+      </Head>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      {/* Hero Section */}
+      <section className="relative h-screen">
+        <div 
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: "url('/images/hero_1.png')" }}
+        >
+          <div className="absolute inset-0 bg-black opacity-60"></div>
+          <div className="relative container mx-auto flex items-center h-full">
+            <div className="w-full md:w-1/2 text-white p-6">
+              <div className="bg-white/20 p-6 rounded-lg backdrop-blur-sm">
+                <h1 className="text-4xl font-bold mb-4 text-white">Range Rover S7</h1>
+                <ul className="space-y-2 mb-4 text-white">
+                  {[
+                    { label: 'Doors', value: '4' },
+                    { label: 'Seats', value: '6' },
+                    { label: 'Luggage', value: '2 Suitcase/2 Bags' },
+                    { label: 'Transmission', value: 'Automatic' },
+                    { label: 'Minimum age', value: '18 years' }
+                  ].map((spec) => (
+                    <li key={spec.label} className="flex justify-between border-b border-white/20 pb-1">
+                      <span>{spec.label}</span>
+                      <span className="font-semibold">{spec.value}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="flex items-center justify-between bg-white text-black p-4 rounded">
+                  <span className="text-xl font-bold">$150/day</span>
+                  <Link 
+                    href="/contact" 
+                    className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+                  >
+                    Rent Now
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+      </section>
+
+      {/* Services Section */}
+      <section className="container mx-auto py-16 px-4">
+        <h2 className="text-3xl font-bold text-center mb-10 text-gray-800">Our Services</h2>
+        <div className="grid md:grid-cols-3 gap-8">
+          {[
+            { icon: '🚗', title: 'Car Rental', description: 'Enjoy a wide selection of vehicles available for rent.' },
+            { icon: '🛡️', title: 'Insurance', description: 'All rentals come with comprehensive insurance for peace of mind.' },
+            { icon: '🗺️', title: 'Guided Tours', description: 'Explore the area with our guided tours available with rental.' }
+          ].map((service) => (
+            <div 
+              key={service.title} 
+              className="text-center p-6 bg-white rounded-lg shadow-md hover:shadow-xl transition border border-gray-200"
+            >
+              <div className="text-5xl mb-4">{service.icon}</div>
+              <h3 className="text-xl font-semibold mb-2 text-gray-800">{service.title}</h3>
+              <p className="text-gray-600">{service.description}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Cars Section */}
+      <section className="container mx-auto py-16 px-4">
+        <h2 className="text-3xl font-bold text-center mb-10 text-gray-800">Our Cars</h2>
+        <div className="grid md:grid-cols-3 gap-8">
+          {featuredCars.map((car) => (
+            <div key={car.id} className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition border border-gray-200">
+              <Image 
+                src={car.image} 
+                alt={car.name} 
+                width={400} 
+                height={250} 
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-4">
+                <h3 className="text-xl font-semibold mb-2 text-gray-800">{car.name}</h3>
+                <div className="flex justify-between items-center">
+                  <span className="text-lg font-bold text-blue-600">${car.price}/day</span>
+                  <Link 
+                    href="/contact" 
+                    className="bg-blue-600 text-white px-3 py-2 rounded hover:bg-blue-700 transition"
+                  >
+                    Rent Now
+                  </Link>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Blog Section */}
+      <section className="container mx-auto py-16 px-4">
+        <h2 className="text-3xl font-bold text-center mb-10 text-gray-800">Latest from Blog</h2>
+        <div className="grid md:grid-cols-3 gap-8">
+          {blogPosts.map((post) => (
+            <div key={post.id} className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition border border-gray-200">
+              <Image 
+                src={post.image} 
+                alt={post.title} 
+                width={400} 
+                height={250} 
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-4">
+                <h3 className="text-xl font-semibold mb-2 text-gray-800">{post.title}</h3>
+                <p className="text-gray-600 mb-4">{post.description}</p>
+                <Link 
+                  href={post.link} 
+                  className="text-blue-600 hover:text-blue-800 transition font-semibold"
+                >
+                  Read More
+                </Link>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section className="container mx-auto py-16 px-4 bg-gray-50">
+        <h2 className="text-3xl font-bold text-center mb-10 text-gray-800">Contact Us</h2>
+        <div className="grid md:grid-cols-2 gap-8">
+          <form className="space-y-4">
+            <div>
+              <label htmlFor="name" className="block mb-2 text-gray-700">Name</label>
+              <input
+                type="text"
+                id="name"
+                className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Your Name"
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="email" className="block mb-2 text-gray-700">Email</label>
+              <input
+                type="email"
+                id="email"
+                className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Your Email"
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="message" className="block mb-2 text-gray-700">Message</label>
+              <textarea
+                id="message"
+                className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                rows={5}
+                placeholder="Your Message"
+                required
+              ></textarea>
+            </div>
+            <button
+              type="submit"
+              className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+            >
+              Send Message
+            </button>
+          </form>
+          <div className="bg-white p-6 rounded-lg shadow-md">
+            <h4 className="text-xl font-semibold mb-4 text-gray-800">Contact Info</h4>
+            <p className="mb-2 flex items-center text-gray-700">
+              <span className="mr-2">📍</span> 123 Main Street, City
+            </p>
+            <p className="mb-2 flex items-center text-gray-700">
+              <span className="mr-2">📞</span> +1 234 567 890
+            </p>
+            <p className="flex items-center text-gray-700">
+              <span className="mr-2">✉️</span> info@carrent.com
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <footer className="bg-gray-900 text-white py-4 text-center">
+        <p>&copy; 2024 CarRent. All Rights Reserved.</p>
       </footer>
     </div>
   );
-}
+};
+
+export default Home;
